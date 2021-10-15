@@ -38,6 +38,16 @@ jobs:
           ref: ${{ env.RELEASE_COMMIT }}
           path: openvscode-server
           token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
+      
+      - uses: actions/checkout@v2
+        with:
+          repository: enz0nun3s15/vscode-server
+          path: myvscode
+          token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
+      
+      -name: Change product.json
+        run: ls -a
+        run: mv ./myvscode/product.json ./openvscode-server/product.json
 
       - name: Setup Build Environment
         working-directory: ./openvscode-server
