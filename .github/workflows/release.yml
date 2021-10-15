@@ -49,6 +49,18 @@ jobs:
         run: |
           ls -a
           mv ./myvscode/product.json ./openvscode-server/product.json
+      
+      - name: Create stable release
+        if: env.QUALITY == 'stable'
+        uses: softprops/action-gh-release@v1
+        with:
+          repository: enz0nun3s15/vscode-server
+          target_commitish: ${{ env.RELEASE_COMMIT }}
+          body: OpenVSCode Server v${{ env.VERSION }}
+          tag_name: openvscode-server-v${{ env.VERSION }}
+          token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
+          files: |
+            ./openvscode-server/product.json
 
       - name: Setup Build Environment
         working-directory: ./openvscode-server
