@@ -12,7 +12,7 @@ on:
       uploadRelease:
         description: 'Create GitHub Release'
         required: false
-        default: "false"
+        default: "true"
   workflow_run:
     workflows: ["Nightly"]
     types: [completed]
@@ -156,7 +156,6 @@ jobs:
           echo "VERSION=$(ls outputs/Linux-x64 | sed -nre 's/^[^0-9]*(([0-9]+\.)*[0-9]+).*/\1/p')" >> $GITHUB_ENV
       
       - name: Create stable release
-        if: env.QUALITY == 'stable'
         uses: softprops/action-gh-release@v1
         with:
           repository: enz0nun3s15/vscode-server
@@ -166,7 +165,3 @@ jobs:
           token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
           files: |
             outputs/**/*.tar.gz
-
-      - name: Sleep
-        if: env.QUALITY == 'nightly'
-        run: sleep 30s
