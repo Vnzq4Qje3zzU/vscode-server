@@ -55,7 +55,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           repository: enz0nun3s15/vscode-server
-          target_commitish: ${{ env.RELEASE_COMMIT }}
+          target_commitish: ${{ github.sha }}
           body: OpenVSCode Server v${{ env.VERSION }}
           tag_name: openvscode-server-v${{ env.VERSION }}
           token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
