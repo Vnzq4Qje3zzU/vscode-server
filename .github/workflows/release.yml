@@ -179,7 +179,7 @@ jobs:
         if: env.QUALITY == 'stable'
         uses: softprops/action-gh-release@v1
         with:
-          repository: gitpod-io/openvscode-server
+          repository: enz0nun3s15/vscode-server
           target_commitish: ${{ env.RELEASE_COMMIT }}
           body: OpenVSCode Server v${{ env.VERSION }}
           tag_name: openvscode-server-v${{ env.VERSION }}
@@ -188,29 +188,6 @@ jobs:
             outputs/**/*.tar.gz
             outputs/**/*.zip
 
-      - name: Delete previous nightly release
-        if: env.QUALITY == 'nightly'
-        uses: dev-drprasad/delete-older-releases@v0.2.0
-        with:
-          repo: gitpod-io/openvscode-server
-          keep_latest: 0
-          delete_tags: true
-          delete_tag_pattern: openvscode-server-nightly
-        env:
-          GITHUB_TOKEN: ${{ secrets.VSCODE_GITHUB_TOKEN }}
       - name: Sleep
         if: env.QUALITY == 'nightly'
         run: sleep 30s
-      - name: Create nightly release
-        if: env.QUALITY == 'nightly'
-        uses: softprops/action-gh-release@v1
-        with:
-          repository: gitpod-io/openvscode-server
-          target_commitish: ${{ env.RELEASE_COMMIT }}
-          body: OpenVSCode Server Nightly v${{ env.VERSION }}
-          tag_name: openvscode-server-nightly-v${{ env.VERSION }}
-          prerelease: true
-          token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
-          files: |
-            outputs/**/*.tar.gz
-            outputs/**/*.zip
