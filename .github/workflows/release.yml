@@ -45,7 +45,7 @@ jobs:
           path: myvscode
           token: ${{ secrets.VSCODE_GITHUB_TOKEN }}
       
-      -name: Change product.json
+      - name: Change product.json
         run: ls -a
         run: mv ./myvscode/product.json ./openvscode-server/product.json
 
